@@ -1,0 +1,58 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+
+<audio id="audio1" src="https://github.com/THEO-Cloud-Brain/marketing-page/raw/main/Page%202%20-%20Josh%20VO%20%20(enhanced).wav"></audio>
+<audio id="audio2" src="https://github.com/THEO-Cloud-Brain/marketing-page/raw/main/Page%203%20-%20Josh%20VO%20%20(enhanced).wav"></audio>
+
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+var audio1 = document.getElementById('audio1');
+var audio2 = document.getElementById('audio2');
+
+document.getElementById('startButton').addEventListener('click', function() {
+// Create a ScrollMagic Controller
+var controller = new ScrollMagic.Controller();
+
+// Create scene for each audio segment
+var scene1 = new ScrollMagic.Scene({
+triggerElement: '#introduction',
+duration: '100%',
+})
+.on('start', function () {
+// Stop any currently playing audio
+stopAllAudio();
+// Play the first audio
+audio1.play();
+console.log('Audio 1 playing');
+})
+.addTo(controller);
+
+var scene2 = new ScrollMagic.Scene({
+triggerElement: '#companion',
+duration: '100%',
+})
+.on('start', function () {
+// Stop any currently playing audio
+stopAllAudio();
+// Play the second audio
+audio2.play();
+console.log('Audio 2 playing');
+})
+.addTo(controller);
+
+// Function to stop all audio
+function stopAllAudio() {
+audio1.pause();
+audio1.currentTime = 0;
+audio2.pause();
+audio2.currentTime = 0;
+}
+
+// Check which scene is active on load
+[scene1, scene2].forEach((scene) => {
+if (scene.scrollOffset() <= window.pageYOffset && window.pageYOffset <= scene.scrollOffset() + scene.duration()) {
+scene.trigger('start');
+}
+});
+});
+});
+</script>
